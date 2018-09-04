@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui = "http://java.sun.com/jsf/facelets">
+	<h:head>
+		<title>Cadastro de Usuário</title>
+	</h:head>
+	
+	<h:body>
+		
+		<ui:include src="/menu.xhtml"/>
+		
+		<h:form id="formPessoa" rendered="#{pessoaBean.permiteAcesso('Adiministrador')}">
+		
+			
+			
+			<h:graphicImage height="50" width="50" library="imagens" name="papocado.jpg"/>
+			
+			<h:messages infoStyle="color: green;" />
+			
+			<h:panelGrid columns="2">
+												
+				<f:facet name="header">
+					<h:outputText value="Cadastro em JSF" />
+				</f:facet>
+				<h:outputLabel value="ID:" />
+				<h:inputText value="#{pessoaBean.pessoa.id}" readonly="true" /> 
+				
+				
+				<h:outputLabel value="Nome:"/>
+				<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
+				 requiredMessage="Preencha o campo Nome" validatorMessage="O campo Nome tem que ter no minimo 4 caracteres" >
+				 	<f:validateLength minimum="4" />
+				 </h:inputText>
+				
+				
+				<h:outputLabel value="Sobre Nome:" />
+				<h:inputText value="#{pessoaBean.pessoa.sobreNome}"/>
+				
+				
+				<h:outputLabel value="Idade:" />
+				<h:inputText value="#{pessoaBean.pessoa.idade}"/>
+				
+				<h:outputText value="Sexo:" />
+				<h:selectOneMenu id="compoSexo" value="#{pessoaBean.pessoa.sexo}">
+					<f:selectItem itemValue="Vazio" itemLabel="[-Selecione-]" noSelectionOption="true" />
+					<f:selectItem itemValue="Masculino"/>
+					<f:selectItem itemValue="Feminino"/>
+				</h:selectOneMenu >
+				
+				<h:outputLabel value="Data Nascimento:" />
+				<h:inputText value="#{pessoaBean.pessoa.dataNascimento}" converterMessage="Data de nascimento errada!" >
+					<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR" timeZone="GMT-03:00" />
+				</h:inputText>
+				
+				<h:outputText value="Frameworks:" />
+				<h:selectManyMenu id="campoFrameworks" style="height:150px;"
+				 value="#{pessoaBean.pessoa.frameworks}">
+					<f:selectItem itemValue="Vazio" itemLabel="[-Selecione-]" noSelectionOption="true" />
+					<f:selectItem itemValue="Hibernate"/>
+					<f:selectItem itemValue="Spring MVC"/>
+					<f:selectItem itemValue="Jpa"/>
+					<f:selectItem itemValue="PrimeFaces"/>
+					<f:selectItem itemValue="JSF"/>
+				</h:selectManyMenu>
+				
+				<h:outputLabel value="Ativo" />
+				<h:selectBooleanCheckbox value="#{pessoaBean.pessoa.ativo}" />
+				
+				<h:outputLabel value="Login:" />
+				<h:inputText value="#{pessoaBean.pessoa.login}" />
+				
+				<h:outputLabel value="Senha:"/>
+				<h:inputSecret value="#{pessoaBean.pessoa.senha}" />
+				
+				<h:outputText value="Perfil:" />
+				<h:selectOneMenu id="compoPerfil" value="#{pessoaBean.pessoa.perfiluser}">
+					<f:selectItem itemValue="Vazio" itemLabel="[-Selecione-]" noSelectionOption="true" />
+					<f:selectItem itemValue="Adiministrador"/>
+					<f:selectItem itemValue="Secretario" itemLabel="Secretário"/>
+					<f:selectItem itemValue="Recepcionista"/>
+				</h:selectOneMenu >
+				
+				<h:outputLabel value="Estado Civil" />
+				<h:selectOneRadio value="#{pessoaBean.pessoa.estadoCivil}" layout="pageDirection">
+					<f:selectItem itemValue="Solteiro" itemLabel="Solteiro" />
+					<f:selectItem itemValue="Casado" itemLabel="Casado"/>
+					<f:selectItem itemValue="Viuvo" itemLabel="Viuvo" />
+				</h:selectOneRadio>
+				
+				<h:outputLabel value="Liguagens Aprendidas" />
+				<h:selectManyCheckbox value="#{pessoaBean.pessoa.linguagens}">
+						<f:selectItem itemValue="1" itemLabel="Java" />
+						<f:selectItem itemValue="2" itemLabel="PHP" />
+						<f:selectItem itemValue="3" itemLabel="Pyton" />
+						<f:selectItem itemValue="4" itemLabel="C#" />
+						<f:selectItem itemValue="5" itemLabel="Cobol" />
+				</h:selectManyCheckbox>
+					
+				<h:outputText/>
+				<h:panelGroup>
+					<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="resources/imagens/mais.png" title="Novo"  />
+					<h:commandButton style="margin-left: 1cm;" value="Salvar" action="#{pessoaBean.salvarMerge}" image="resources/imagens/save.png" title="Salvar" />
+					<h:commandButton  style="margin-left: 1cm;" value="Remove" action="#{pessoaBean.deletePorId}" image="resources/imagens/remover.png" title="remover"  rendered="#{pessoaBean.permiteAcesso('Adiministrador')}" />
+					<h:commandButton  style="margin-left: 1cm;" value="Limpar" type="reset" image="resources/imagens/limpar.png" title="Limpar"  />
+			    </h:panelGroup>
+				
+			</h:panelGrid>
+			
+			<h:dataTable value="#{pessoaBean.pessoas}" var="pessoa" border="1" cellpadding="6" > 
+				<f:facet name="header">
+					Lista de Usuários Cadastrados
+				</f:facet>
+				<h:column>
+					<f:facet name="header">ID</f:facet>
+					<h:outputText value="#{pessoa.id}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Nome</f:facet>
+					<h:outputText value="#{pessoa.nome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Sobre Nome</f:facet>
+					<h:outputText value="#{pessoa.sobreNome}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Idade</f:facet>
+					<h:outputText value="#{pessoa.idade}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">Ação</f:facet>
+					<h:commandLink value=" ">
+						<h:graphicImage value="resources/imagens/editar.png" title="Editar"/>
+						<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
+						
+					</h:commandLink>
+					
+					<h:outputLabel value=" " />
+					
+					<h:commandLink value="" action="#{pessoaBean.deletePorId}" rendered="#{pessoaBean.permiteAcesso('Adiministrador')}">
+						<h:graphicImage value="resources/imagens/remover.png" title="Excluir"/>
+						<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"></f:setPropertyActionListener>
+					</h:commandLink>
+				</h:column>
+				
+			</h:dataTable>
+		</h:form>	
+	</h:body>
+</html>
