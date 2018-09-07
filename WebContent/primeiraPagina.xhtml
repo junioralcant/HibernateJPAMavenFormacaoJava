@@ -30,13 +30,12 @@
 				
 				
 				<h:outputLabel value="Nome:"/>
-				<h:inputText value="#{pessoaBean.pessoa.nome}" required="true"
-				 requiredMessage="Preencha o campo Nome" validatorMessage="O campo Nome tem que ter no minimo 4 caracteres" >
-				 	<f:validateLength minimum="4" />
+				<h:inputText value="#{pessoaBean.pessoa.nome}">
+				 	
 				 </h:inputText>
 				
 				
-				<h:outputLabel value="Sobre Nome:" />
+				<h:outputLabel value="Sobrenome:" />
 				<h:inputText value="#{pessoaBean.pessoa.sobreNome}"/>
 				
 				
@@ -101,10 +100,10 @@
 					
 				<h:outputText/>
 				<h:panelGroup>
-					<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="resources/imagens/mais.png" title="Novo"  />
+					<h:commandButton value="Novo" action="#{pessoaBean.novo}" image="resources/imagens/mais.png" title="Novo" immediate="true" />
 					<h:commandButton style="margin-left: 1cm;" value="Salvar" action="#{pessoaBean.salvarMerge}" image="resources/imagens/save.png" title="Salvar" />
-					<h:commandButton  style="margin-left: 1cm;" value="Remove" action="#{pessoaBean.deletePorId}" image="resources/imagens/remover.png" title="remover"  rendered="#{pessoaBean.permiteAcesso('Adiministrador')}" />
-					<h:commandButton  style="margin-left: 1cm;" value="Limpar" type="reset" image="resources/imagens/limpar.png" title="Limpar"  />
+					<h:commandButton  style="margin-left: 1cm;" value="Remove" action="#{pessoaBean.deletePorId}" image="resources/imagens/remover.png" title="remover" immediate="true"  rendered="#{pessoaBean.permiteAcesso('Adiministrador')}" />
+					<h:commandButton  style="margin-left: 1cm;" value="Limpar" type="reset" image="resources/imagens/limpar.png" title="Limpar" immediate="true" />
 			    </h:panelGroup>
 				
 			</h:panelGrid>
@@ -131,8 +130,8 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">Ação</f:facet>
-					<h:commandLink value=" ">
-						<h:graphicImage value="resources/imagens/editar.png" title="Editar"/>
+					<h:commandLink value=" " >
+						<h:graphicImage value="resources/imagens/editar.png" title="Editar" />
 						<f:setPropertyActionListener value="#{pessoa}" target="#{pessoaBean.pessoa}"/>
 						
 					</h:commandLink>

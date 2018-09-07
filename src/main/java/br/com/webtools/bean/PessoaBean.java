@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import br.com.webtools.dao.DaoGeneric;
 import br.com.webtools.entidades.Pessoa;
@@ -29,6 +31,7 @@ public class PessoaBean {
 	
 	private IDaoPessoa idaopessoa = new IDaoPessoaImpl();
 	
+		
 	public String salvar () {
 		dao.salvar(pessoa);
 		pessoa = new Pessoa();

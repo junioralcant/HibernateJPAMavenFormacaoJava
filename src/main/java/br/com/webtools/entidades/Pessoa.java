@@ -9,6 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Pessoa implements Serializable{
@@ -20,13 +26,22 @@ public class Pessoa implements Serializable{
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private Long id;
 	
+	// VALIDAÇÃO COM BIN VALIDATOR de tamanho
+	//@Size (min=3, max = 50, message = "O campo Nome deve ter entre 4 e 50 letras ")
+	//@NotEmpty(message = "Nome deve ser informado") // se sobre nome for vazio
 	private String nome;
 	
+	// VALIDAÇÃO COM BIN VALIDATOR
+	//@NotEmpty(message = "Sobrenome deve ser informado") // se sobre nome for vazio
+	//@NotNull (message = "Sobrenome deve ser informado") // Se sobre nome for null
 	private String sobreNome;
 	
+	// VALIDAÇÃO COM BIN VALIDATOR
+	//@DecimalMin(value = "10", message = "Idade deve ser maior que 10")
+	//@DecimalMax(value = "50", message = "Idade deve ser menor que 50")
 	private Integer idade;
 	
-	@Temporal(TemporalType.DATE)
+	//@Temporal(TemporalType.DATE)
 	private Date dataNascimento = new Date(); // FOI INTACIADA PARA RECEBER O VALOR DA DATA ATUAL
 	
 	private String sexo;
